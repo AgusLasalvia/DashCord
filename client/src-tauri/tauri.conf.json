@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.tauri.app/config/2",
+	"productName": "DashCord",
+	"version": "1.0.0",
+	"identifier": "com.dashcord.bandicoot",
+	"build": {
+		"frontendDist": "../out",
+		"devUrl": "http://localhost:3000",
+		"beforeDevCommand": "bun run dev",
+		"beforeBuildCommand": "bun run build"
+	},
+	"app": {
+		"windows": [
+			{
+				"title": "DashCord",
+				"width": 1270,
+				"height": 768,
+				"resizable": true,
+				"fullscreen": false
+			}
+		],
+		"security": {
+			"csp": null
+		}
+	},
+	"bundle": {
+		"active": true,
+		"targets": "all",
+		"icon": [
+			"icons/icon.ico"
+		]
+	}
+}

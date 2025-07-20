@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+body {
+	background: linear-gradient(135deg, #23272a 0%, #2c2f33 100%);
+	color: #fff;
+	font-family: "Inter", "Segoe UI", "Roboto", "sans-serif";
+	margin: 0;
+	padding: 0;
+}
