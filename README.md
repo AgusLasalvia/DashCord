@@ -23,7 +23,7 @@
 - 🔍 YouTube: YouTube Search API  
 - 💻 Frontend: Next.js (Client-side only, in `/client`)  
 - 🧱 Desktop App Framework: Tauri  
-- 🤖 Discord Bot: [View bot repository](https://github.com/AgusLasalvia/DashCord.git)  
+- 🤖 Discord Bot: [View bot repository](https://github.com/AgusLasalvia/bandicoot-discord-bot.git)  
 
 ## 📡 API Endpoints
 
