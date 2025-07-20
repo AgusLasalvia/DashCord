@@ -53,8 +53,15 @@ async def get_playlist_songs_by_playlist_id(id: str):
         {"_id": ObjectId(id)},
         {"songs": 1, "_id": 0}
     )
-    
+
     return playlist.get("songs", []) if playlist else []
+
+
+async def delete_song_from_playlist(playlist_id: str, song_id: str):
+    await db.playlist_collection.update_one(
+        {"_id": ObjectId(playlist_id)},
+        {"$pull": {"songs": {"_id": ObjectId(song_id)}}}
+    )
 
 
 async def fix_mongo_id(doc: Optional[dict]) -> Optional[dict]:

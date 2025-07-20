@@ -27,3 +27,7 @@ async def get_playlist_names():
 
 async def get_playlist_songs_by_id(id: str):
     return await pr.get_playlist_songs_by_playlist_id(id)
+
+
+async def delete_song_from_playlist(playlist_id: str, song_id: str):
+		return await pr.delete_song_from_playlist(playlist_id, song_id)
