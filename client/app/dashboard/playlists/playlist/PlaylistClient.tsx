@@ -1,7 +1,8 @@
 "use client"
+import { getPlaylistByID, deleteSongsFromPlaylistByID } from "@/lib/playlist"
 import { useSearchParams } from "next/navigation"
-import { getPlaylistByID } from "@/lib/playlist"
 import { useEffect, useState } from "react"
+import { useToast } from "@/hooks/useToast"
 import { IPlaylist } from "@/types"
 import "./page.css"
 
@@ -9,18 +10,33 @@ export default function PlaylistClient() {
 	const params = useSearchParams()
 	const id = params.get("id")
 	const [playlist, setPlaylist] = useState<IPlaylist>()
+	const { showToast, ToastContainer } = useToast()
+
+	const fetchPlaylist = async () => {
+		if (!id) return;
+		const data = await getPlaylistByID(id)
+		setPlaylist(data)
+	}
 
 	useEffect(() => {
-		if (!id) return;
-		const fetchPlaylist = async () => {
-			const data = await getPlaylistByID(id)
-			setPlaylist(data)
-		}
 		fetchPlaylist()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id])
+
+	const handleDeleteSong = async (song_id: string) => {
+		if (!id) return;
+		const ok = await deleteSongsFromPlaylistByID(id, song_id)
+		if (ok) {
+			showToast("Canción eliminada de la playlist", "success")
+			fetchPlaylist()
+		} else {
+			showToast("Error al eliminar la canción", "error")
+		}
+	}
 
 	return (
 		<div className="playlist-visor-container">
+			<ToastContainer />
 			{playlist ? (
 				<>
 					<div className="playlist-visor-header">
@@ -60,6 +76,9 @@ export default function PlaylistClient() {
 												</button>
 												<button className="playlist-visor-song-btn copy" title="Copy link" onClick={async () => { await navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${song.youtube_id}`); }}>
 													<i className="bi bi-clipboard"></i>
+												</button>
+												<button className="playlist-visor-song-btn delete" title="Eliminar canción" onClick={() => handleDeleteSong(song.youtube_id)}>
+													<i className="bi bi-trash"></i>
 												</button>
 											</td>
 										</tr>

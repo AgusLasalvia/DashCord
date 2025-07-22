@@ -50,6 +50,18 @@ export const addSongToPlaylist = (song: ISong, playlistID: string) => {
 }
 
 
-export const deleteSongsFromPlaylistByID = async (id: string) => {
-
+export const deleteSongsFromPlaylistByID = async (playlist_id: string, song_id: string) => {
+	const response = await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/playlists/song", {
+		headers: {
+			Authorization: "Bearer " + getToken()
+		},
+		data: {
+			playlist_id: playlist_id,
+			song_id: song_id
+		}
+	});
+	if (response.status === 204) {
+		return true;
+	}
+	return false;
 };
