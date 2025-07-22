@@ -40,7 +40,6 @@
 Configure these in a `.env` file:
 
 - `MONGODB_URI` — MongoDB connection string for local DB  
-- `YOUTUBE_API_KEY` — YouTube Data API key  
 - `SECRET_KEY` — Secret key for authentication/token signing  
 - Additional variables as needed
 
