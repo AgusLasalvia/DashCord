@@ -148,7 +148,7 @@
 .playlist-visor-song-row:hover {
 	background: #36393f;
 	box-shadow: 0 4px 18px rgba(88, 101, 242, 0.13);
-	transform: scale(1.012);
+	/* transform: scale(1.001); */
 }
 
 .playlist-visor-song-index {
@@ -183,7 +183,7 @@
 .playlist-visor-song-btn {
 	background: #36393f;
 	border: none;
-	border-radius: 50%;
+	border-radius: 9px;
 	width: 36px;
 	height: 36px;
 	display: flex;

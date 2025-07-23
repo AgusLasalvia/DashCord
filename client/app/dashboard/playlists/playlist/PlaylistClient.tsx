@@ -1,12 +1,13 @@
 "use client"
 import { getPlaylistByID, deleteSongsFromPlaylistByID } from "@/lib/playlist"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/useToast"
 import { IPlaylist } from "@/types"
 import "./page.css"
 
 export default function PlaylistClient() {
+	const router = useRouter()
 	const params = useSearchParams()
 	const id = params.get("id")
 	const [playlist, setPlaylist] = useState<IPlaylist>()
@@ -20,7 +21,6 @@ export default function PlaylistClient() {
 
 	useEffect(() => {
 		fetchPlaylist()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id])
 
 	const handleDeleteSong = async (song_id: string) => {
@@ -31,6 +31,17 @@ export default function PlaylistClient() {
 			fetchPlaylist()
 		} else {
 			showToast("Error al eliminar la canción", "error")
+		}
+	}
+
+	const handleDeletePlaylist = async () => {
+		if (!id) return;
+		const ok = await deleteSongsFromPlaylistByID(id, "")
+		if (ok) {
+			showToast("Playlist eliminada", "success")
+			router.push("/dashboard/playlists")
+		} else {
+			showToast("Error al eliminar la playlist", "error")
 		}
 	}
 
@@ -49,6 +60,9 @@ export default function PlaylistClient() {
 							<h1 className="playlist-visor-title">{playlist.name}</h1>
 							<span className="playlist-visor-creator">Created by <b>{playlist.created_by}</b></span>
 							<span className="playlist-visor-count">{playlist.songs.length} songs</span>
+						</div>
+						<div>
+							<button className="playlist-visor-song-btn delete" onClick={handleDeletePlaylist}><i className="bi bi-trash"></i></button>
 						</div>
 					</div>
 					<div className="playlist-visor-songs-table-container">
